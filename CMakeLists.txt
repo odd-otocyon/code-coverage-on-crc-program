@@ -18,29 +18,22 @@ endif()
 #   * à l'aide d'une variable
 #   * grace à la fonction file
 # set(sources "src/main.cpp" "src/processing.cpp" "src/processing.h")
-file(GLOB src src/*.cpp)
-message("src = ${src}")
-file(GLOB headers src/*.h)
+file(GLOB src src/*.cpp src/*.h)
 
 # Boucle qui affiche le contenu de la variable sources (qui est une liste)
-function(showFiles src headers)
-  foreach(sourceFile IN LISTS "${src}" "${headers}")
+function(showFiles src)
+  foreach(sourceFile IN LISTS "${src}")
     message("${sourceFile}")
   endforeach()
 endfunction()
 
 # Fonction main, prend sources en paramètre et construit la cible. Affiche diverse
 # infos à des fins de test
-function(main sourcesFiles)
-  message("Voici les fichiers de sources de projet :")
-  # showFiles("${src}" "${headers}")
-  foreach(sourceFile IN LISTS "${ARGC0}")
-    message("${sourceFile}")
-  endforeach()
-  # message("CMake est réglé sur ${CMAKE_BUILD_TYPE}")
-  # message("PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
-  # message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}")
-  add_executable(crc "${sources}" "${headers}")
+function(main src)
+  message("CMake est réglé sur ${CMAKE_BUILD_TYPE}")
+  message("PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
+  message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}")
+  add_executable(crc "${src}")
 endfunction()
 
-main("${sources}" "${headers}")
+main("${src}")
