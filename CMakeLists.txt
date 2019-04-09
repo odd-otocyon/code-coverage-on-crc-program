@@ -19,20 +19,16 @@ endif()
 #   * à l'aide d'une variable
 #   * grace à la fonction file
 # set(sources "src/main.cpp" "src/processing.cpp" "src/processing.h")
-file(GLOB src src/*.cpp src/*.h)
-
-file(GLOB cppFile src/*.cpp)
-file(GLOB headerFile src/*.h)
-message("CPP = ${cppFile}")
-message("header =  ${headerFile}")
+file(GLOB src src/*.cpp)
+file(GLOB header src/*.h)
 
 # Boucle qui affiche le contenu de la variable sources (qui est une liste)
-function(showFiles files)
+function(showFiles allFiles)
   message("### Show Files ###")
   # message("via arg : ${arg1}  ${arg2}")
   # message("${ARGC}")
   # message("${ARGV1}")
-  foreach(sourceFile IN LISTS files)
+  foreach(sourceFile IN LISTS allFiles)
     message("${sourceFile}")
   endforeach()
   message("##################")
@@ -41,11 +37,11 @@ endfunction(showFiles)
 # Fonction main, prend sources en paramètre et construit la cible. Affiche diverse
 # infos à des fins de test
 function(main src)
+  showFiles("${src} ; ${header}")
   message("CMake est réglé sur ${CMAKE_BUILD_TYPE}")
   message("PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
   message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}")
   add_executable(crc "${src}")
 endfunction(main)
 
-showFiles("${cppFile} ; ${headerFile}")
 main("${src}")
