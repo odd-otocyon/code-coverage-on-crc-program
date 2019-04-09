@@ -6,6 +6,7 @@ project(crc
   LANGUAGES CXX)
 set(CMAKE_BUILD_TYPE "Debug") # Debug or Release
 
+# Permet l'utilisation de dossier afin de créer le projet pour un IDE
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Permet d'empêcher l'execution de CMake dans un dossier de sources (contenant
@@ -22,26 +23,28 @@ endif()
 file(GLOB src src/*.cpp)
 file(GLOB header src/*.h)
 
-# Boucle qui affiche le contenu de la variable sources (qui est une liste)
-function(showFiles allFiles)
+# Macro contenant une boucle qui affiche le contenu de la variable sources (qui
+# est une liste)
+macro(showFiles allFiles)
   message("### Show Files ###")
-  # message("via arg : ${arg1}  ${arg2}")
-  # message("${ARGC}")
-  # message("${ARGV1}")
+
   foreach(sourceFile IN LISTS allFiles)
     message("${sourceFile}")
   endforeach()
-  message("##################")
-endfunction(showFiles)
 
-# Fonction main, prend sources en paramètre et construit la cible. Affiche diverse
-# infos à des fins de test
-function(main src)
-  showFiles("${src} ; ${header}")
+  message("##################")
+endmacro(showFiles)
+
+# Fonction main, prend une liste de fichier en paramètre et construit la cible.
+# Affiche diverse infos à des fins de test
+function(main allFiles)
+  showFiles("${src};${header}")
   message("CMake est réglé sur ${CMAKE_BUILD_TYPE}")
   message("PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
   message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}")
-  add_executable(crc "${src}")
+  message("allFiles = ${allFiles}")
+  add_executable(crc "${allFiles}")
 endfunction(main)
 
-main("${src}")
+# Important, ne pas mettre d'espace autour du point virgule
+main("${src};${header}")
