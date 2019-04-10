@@ -6,6 +6,7 @@ et à la création d'un projet avec CMake.
 [Official CMake Documentation](https://cmake.org/cmake/help/v3.14/index.html)  
 [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/)  
 [Effective Modern CMake](https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1)  
+[It's Time To Do CMake Right](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)  
 [Minimal CMake Example](https://github.com/krux02/minimal_cmake_example)  
 [Tutorial CMake](http://sirien.metz.supelec.fr/depot/SIR/TutorielCMake/index.html)
 
