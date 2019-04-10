@@ -25,7 +25,7 @@ file(GLOB header src/*.h)
 
 # Macro contenant une boucle qui affiche le contenu de la variable sources (qui
 # est une liste)
-macro(showFiles allFiles)
+function(showFiles allFiles)
   message("### Show Files ###")
 
   foreach(sourceFile IN LISTS allFiles)
@@ -33,12 +33,14 @@ macro(showFiles allFiles)
   endforeach()
 
   message("##################")
-endmacro(showFiles)
+endfunction(showFiles)
+
+showFiles("${src};${header}")
 
 # Fonction main, prend une liste de fichier en paramètre et construit la cible.
 # Affiche diverse infos à des fins de test
 function(main allFiles)
-  showFiles("${src};${header}")
+  showFiles("${allFiles}")
   message("CMake est réglé sur ${CMAKE_BUILD_TYPE}")
   message("PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
   message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}")
@@ -48,3 +50,32 @@ endfunction(main)
 
 # Important, ne pas mettre d'espace autour du point virgule
 main("${src};${header}")
+
+# Attention à la porté des variables
+message("\n=========================================\n")
+set(foo "Foo")
+set(bar "Bar")
+set(fooBar ${foo} ${bar})
+
+function(myFunction arg1 arg2 arg3)
+    message("Foo = ${foo}\nBar = ${bar}\nFooBar = ${fooBar}")
+    message("ARGC = ${ARGC}\nARGV0 = ${ARGV0}\nARGV1 = ${ARGV1}\nARGV2 = ${ARGV2}")
+    set(foo "bar")
+endfunction(myFunction)
+
+myFunction(${foo} ${bar} ${fooBar})
+message("\n${foo}")
+set(foo "bar")
+message(${foo})
+
+# Retour
+# Foo = Foo
+# Bar = Bar
+# FooBar = Foo;Bar
+# ARGC = 4
+# ARGV0 = Foo
+# ARGV1 = Bar
+# ARGV2 = Foo
+#
+# Foo
+# bar
