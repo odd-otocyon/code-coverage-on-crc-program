@@ -1,29 +1,34 @@
-cmake_minimum_required(VERSION 3.1...3.10)
-set(CMAKE_BUILD_TYPE Release) # Debug or Release
+cmake_minimum_required(VERSION 3.1...3.14)
 project(crc
   VERSION 1.0
-  DESCRIPTION "Test CMake"
+  DESCRIPTION "Code coverage test with CMake"
   LANGUAGES CXX)
-set(CMAKE_BUILD_TYPE "Debug") # Debug or Release
 
-# Permet d'empêcher l'execution de CMake dans un dossier de sources (contenant
-# un CMakeLists.txt)
-# file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
-#
-# if(EXISTS "${LOC_PATH}")
-#   message(FATAL_ERROR "Vous ne pouvez pas construire le projet dans un répertoire de sources")
-# endif()
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g --coverage")
+# Configuration de la couverture de code
+add_library(coverage_config INTERFACE)
 
-# Créer la target et ajoute les fichiers necessaire à sa compilation
-add_executable(crc
-    src/main.cpp
-    src/processing.cpp
-)
+# création d'une option pour activer ou non la couverture de code
+option(CODE_COVERAGE "Enable coverage reporting" OFF)
+if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    message("Converture de code activée")
+    target_compile_options(coverage_config INTERFACE
+        -O0
+        -g
+        --coverage
+    )
+    # target_link_options apparaît avec CMake 3.13
+    # target_link_options spécifi les options à utiliser lorsque cette librairie
+    # est liée à une autre cible,
+    # target_link_libraries fonctionne de façon similaire
+    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+        target_link_options(coverage_config INTERFACE --coverage)
+    else()
+        target_link_libraries(coverage_config INTERFACE --coverage)
+    endif()
+endif()
 
-# Ajoute des dossiers necessaires à la compilation
-# target_include_directories(crc
-#     PRIVATE
-#         ${CMAKE_CURRENT_SOURCE_DIR}/src
-# )
+add_subdirectory(src)
+add_subdirectory(tests)

@@ -12,11 +12,11 @@ int main(int argc, char* argv[])
 	{
 		filepath = argv[1];
 	}
-	
+
 	ifstream infile(filepath);
 	if (infile)
 	{
-		cout << "L'ouverture du fichier c'est effectuée avec succes" << endl;
+		cout << "L'ouverture du fichier c'est effectuï¿½e avec succes" << endl;
 	}
 	else
 	{
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 	{
 		processing.calculator(c);
 	}
-	
+
 	cout << "CRC = " << processing.getRemain() << endl;
 
 	system("PAUSE");
