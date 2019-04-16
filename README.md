@@ -3,6 +3,7 @@ Initiation à la programation C++ via un programme de Contrôle de redondance cy
 et à la création d'un projet avec CMake.
 
 ## Liens
+[Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)
 [Official CMake Documentation](https://cmake.org/cmake/help/v3.14/index.html)  
 [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/)  
 [Effective Modern CMake](https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1)  
