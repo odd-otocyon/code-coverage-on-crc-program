@@ -13,6 +13,7 @@ add_library(coverage_config INTERFACE)
 # création d'une option pour activer ou non la couverture de code
 option(CODE_COVERAGE "Enable coverage reporting" OFF)
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    message("Converture de code activée")
     target_compile_options(coverage_config INTERFACE
         -O0
         -g
@@ -26,6 +27,7 @@ if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         target_link_options(coverage_config INTERFACE --coverage)
     else()
         target_link_libraries(coverage_config INTERFACE --coverage)
+    endif()
 endif()
 
 add_subdirectory(src)
