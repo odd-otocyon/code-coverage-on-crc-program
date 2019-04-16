@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1...3.10)
+cmake_minimum_required(VERSION 3.1...3.14)
 project(crc
   VERSION 1.0
   DESCRIPTION "Code coverage test with CMake"
