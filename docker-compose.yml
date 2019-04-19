@@ -5,3 +5,12 @@ services:
     compile:
         build: ./
         image: coverage:1.0
+        volumes:
+            - type: bind
+              source: ./
+              target: /code
+              volume:
+                  nocopy: true
+
+volumes:
+    code:
