@@ -12,5 +12,8 @@ services:
               volume:
                   nocopy: true
 
+            # short syntax
+            # - ./:/code
+
 volumes:
     code:

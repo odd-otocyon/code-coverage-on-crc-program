@@ -1,7 +1,5 @@
 # On selectionne la distribution alpine
 FROM alpine
-# On copie le code source dans le conteneur
-# COPY ./ /root/code/
 
 # On se rend dans le repertoire de travail (de compilation)
 WORKDIR /code
