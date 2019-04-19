@@ -120,7 +120,7 @@ make
 ```
 
 Avec Lcov ( rapport HTML )
-```shell
+```bash
 # On collecte les données de coverage avec lcov
 lcov --capture --directory . --output-file coverage.info
 
@@ -129,7 +129,7 @@ genhtml coverage.info --output-directory Coverage_html/
 ```
 
 Avec Gcovr ( rapport text, HTML et XML/Cobertura )
-```shell
+```sh
 # Prérequis : python3, pip3, installer gcovr via pip
 pip3 install gcovr
 
