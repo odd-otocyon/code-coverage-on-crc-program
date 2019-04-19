@@ -15,9 +15,13 @@ option(CODE_COVERAGE "Enable coverage reporting" OFF)
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     message("Converture de code activée")
     target_compile_options(coverage_config INTERFACE
-        -O0
+        # -O0
+        # -g
+        # --coverage
+        -fprofile-arcs
+        -ftest-coverage
         -g
-        --coverage
+        -O0
     )
     # target_link_options apparaît avec CMake 3.13
     # target_link_options spécifi les options à utiliser lorsque cette librairie

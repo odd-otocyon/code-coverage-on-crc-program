@@ -1,61 +1,47 @@
 # CRC
-Initiation à la programation C++ via un programme de Contrôle de redondance cyclique,
-et à la création d'un projet avec CMake.
+Initiation à la programation C++ via un programme de Contrôle de redondance cyclique, et à la création d'un projet avec CMake.
 
 ## Liens
-[Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)
-[Official CMake Documentation](https://cmake.org/cmake/help/v3.14/index.html)  
-[An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/)  
-[Effective Modern CMake](https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1)  
-[It's Time To Do CMake Right](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)  
-[Minimal CMake Example](https://github.com/krux02/minimal_cmake_example)  
-[Tutorial CMake](http://sirien.metz.supelec.fr/depot/SIR/TutorielCMake/index.html)
+[Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)  
+[Doc Gcov](http://ltp.sourceforge.net/coverage/lcov.php)  
+[Doc Lcov](http://www.gcovr.com/en/stable/installation.html)  
 
-## Macros et functions
-La différence entre les macro et les fonction est le scope, les macros n'en ont
-pas. Ainsi si vous utilisez une variable dans une fonction et que vous souhaitez
-la rendre visible à l'exterieur il faut utiliser le mot clé PARENT_SCOPE.
+## Liste des commandes
 
-**Attention** : dans le fichier CMakeLists du dépôt, si *showFiles* est déclaré
-en macro le paramètre  *allFiles* reprendra automatiquement la valeur de *allFiles*
-de la function main, même si on lui passe une autre variable en paramètre. Les macro sont donc à utiliser avec précaution.
+Voicie la liste des commandes permettant de compiler le programme de lancer le
+code coverage :
 
-Exemple de passage d'argument à une [Function](https://cmake.org/cmake/help/latest/command/function.html#command:function) et de porté des variables :
+    # On créer le dossier de build puis on se rend à l'interieur
+    mkdir build
+    cd build
 
-    set(foo "Foo")
-    set(bar "Bar")
-    set(fooBar ${foo} ${bar})
+    # On lance CMake avec en activant l'option *CODE_COVERAGE*
+    cmake -D CODE_COVERAGE=ON ../
 
-    function(myFunction arg1 arg2 arg3)
-        message("Foo = ${foo}\nBar = ${bar}\nFooBar = ${fooBar}")
-        message("ARGC = ${ARGC}\nARGV0 = ${ARGV0}\nARGV1 = ${ARGV1}\nARGV2 = ${ARGV2}")
-        set(foo "bar")
-    endfunction(myFunction)
+    # On compile le projet
+    make
 
-    myFunction(${foo} ${bar} ${fooBar})
-    message("\n${foo}")
-    set(foo "bar")
-    message(${foo})
+    # On execute le programme afin que GCov génère les fichiers *.gcda*
+    ./tests/tests
 
-Retour de la fonction :
+Avec Lcov ( rapport HTML )
 
-    =========================================
-    Foo = Foo
-    Bar = Bar
-    FooBar = Foo;Bar
-    ARGC = 4
-    ARGV0 = Foo
-    ARGV1 = Bar
-    ARGV2 = Foo
+    # On collecte les données de coverage avec lcov
+    lcov --capture --directory . --output-file coverage.info
 
-    Foo
-    bar
+    # On génére un fichier html
+    genhtml coverage.info --output-directory Coverage_html/
 
+Avec Gcovr ( rapport text, HTML et XML/Cobertura )
 
-[Macro](https://cmake.org/cmake/help/v3.10/command/macro.html)
+    # Prérequis : python3, pip3, installer gcovr via pip
+    pip3 install gcovr
 
-    macro(<name> [arg1 [arg2 [arg3 ...]]])
-        COMMAND1(ARGS ...)
-        COMMAND2(ARGS ...)
-        ...
-    endmacro(<name>)
+    # Générer un rapport HTML
+    gcovr -r . --html -o chemin/example.html
+
+    # Générer un rapport XML ( Cobertura )
+    gcovr -r . --xml-pretty
+
+    # Générer un rapport text
+    gcovr -r .
