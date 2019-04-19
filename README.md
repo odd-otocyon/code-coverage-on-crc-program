@@ -18,7 +18,7 @@ de compilation suivantes, soit via CMake, soit dans le Makefile :
 * --coverage : active la couverture de code, cette option regroupe les trois suivantes :
     * -fprofile-arcs : compile en permettant la génération de données lors de l'execution du programme, celles-ci sont utilisées lors de la couverture de code.
     * -ftest-coverage : produit des fichiers utilisés par Gcov
-    * -lgcov : permet de lier les fichiers générés
+    * -lgcov : lie les fichiers générées à la librairie Gcov
 
 ## CMakeLists
 
