@@ -3,12 +3,12 @@ Initiation à la programation C++ via un programme de Contrôle de redondance cy
 
 ## Fonctionnement de la couverture de code
 
-Pour ce programme la couverture de passe par les étapes suivantes :
-* CMake : ajout des option de compilation necessaires à la couverture de code
+Pour ce programme la couverture de code passe par les étapes suivantes :
+* CMake : ajout des options de compilation necessaires à la couverture de code
 * GCC : compilation du programe
 * Execution du programme : génére des fichiers \*.gcno et \*.gcda
 * Gcov : utilise les fichiers \*.gcno et \*.gcda afin de prduire des données de couverture de code.
-* FCov/Gcovr : permet de convertire ces données dans divers format (HTML, XML, Text).  
+* FCov/Gcovr : permet de convertire ces données dans divers formats (HTML, XML, Text).  
 À noter que GCov est appellé automatiquement par FCov ou Gcovr.
 
 Pour mettre en place la couverture de code avec GCC il faut ajouter les options
@@ -38,7 +38,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ```
 
-On créer une cible librairie de type INTERFACE, elle contiendra les option de compilation relative à la couverture du code :
+On créer une cible librairie de type INTERFACE, elle contiendra les tags de compilation relatives à la couverture de code :
 ```CMake
 add_library(coverage_config INTERFACE)
 ```
@@ -48,7 +48,7 @@ On créer une option afin d'activer ou non la couverture de code :
 option(CODE_COVERAGE "Enable coverage reporting" OFF)
 ```
 
-On verifie que l'on est bien sur un compilateur GCC, et on ajoute les tags de compilations nécessaire à la cible *coverage_config*
+On verifie que l'on est bien sur un compilateur GCC, et on ajoute les tags de compilation nécessaires à la cible *coverage_config*
 ```CMake
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     message("Converture de code activée")
@@ -59,7 +59,7 @@ if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     )
 ```
 
-On fait en sorte qu'elle passe ces tag de compilation aux cibles avec lesquelle elle sera liées :
+On fait en sorte qu'elle passe ces tags de compilation aux cibles avec lesquelles elle sera liées :
 ```CMake
     if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
         target_link_options(coverage_config INTERFACE --coverage)
@@ -69,7 +69,7 @@ On fait en sorte qu'elle passe ces tag de compilation aux cibles avec lesquelle 
 endif()
 ```
 
-On ajoute les sous répertoire src et tests au projet
+On ajoute les sous répertoire *src* et *tests* au projet
 ```CMake
 add_subdirectory(src)
 add_subdirectory(tests)
@@ -87,14 +87,14 @@ On ajoute le dossier src à la cible, afin d'inclure les .h dans le Makefile gé
 target_include_directories(processing PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 ```
 
-On lie processing est coverage_config, ainsi processing hérite des options de celle-ci grace à target_link_options déffini au CMakeLists à la racine.
+On lie processing est coverage_config, ainsi processing hérite des tags de compilation de celle-ci grace à target_link_options déffini au CMakeLists à la racine.
 ```CMake
 target_link_libraries(processing PUBLIC coverage_config)
 ```
 
 ### /test/CMakeLists
 
-On ajoute une cible de type executable, et on la lie à *processing*. Comme *processing* est liées à *coverage_config*, les tags de compile de cette dernière sont aussi passés à *crc*
+On ajoute une cible de type executable, on la lie à *processing*. Comme *processing* est lié à *coverage_config*, les tags de compile de cette dernière sont aussi passés à *crc*
 ```CMake
 add_executable(crc main.cpp)
 target_link_libraries(crc PRIVATE processing)
@@ -102,14 +102,14 @@ target_link_libraries(crc PRIVATE processing)
 
 ## Liste des commandes de compilation et couverture de code
 
-Voicie la liste des commandes permettant de compiler le programme de lancer le
+Voicie la liste des commandes permettant de compiler le programme et de lancer le
 code coverage (notez que l'on utilise ici CMake), elles sont utilisées dans le fichier launchCompil.sh :
 ```shell
 # On créer le dossier de build puis on se rend à l'interieur
 mkdir build
 cd build
 
-# On lance CMake avec en activant l'option *CODE_COVERAGE*
+# On lance CMake en activant l'option *CODE_COVERAGE*
 cmake -D CODE_COVERAGE=ON ../
 
 # On compile le projet
