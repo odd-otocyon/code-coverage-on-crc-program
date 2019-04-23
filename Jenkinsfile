@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'alpine-gcc:1.0' } }
+    agent { docker { image 'coverage:1.0' } }
     stages {
         stage('build') {
             steps {
