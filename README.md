@@ -1,15 +1,22 @@
-# CRC
-Initiation à la programation C++ via un programme de Contrôle de redondance cyclique, et à la création d'un projet avec CMake.
+# Couverture de code C++.
 
-## Fonctionnement de la couverture de code
+Ce projet à pour but de compiler un programme C++ avec mise en place d'un système de couverture de code.
+Puis d'automatiser le processus via Docker et Jenkins.
+Ce projet est réalisé sur un système Linux, et les outils utilisés ne sons pour la plupars pas disponible sous Windows.
 
-Pour ce programme la couverture de code passe par les étapes suivantes :
+## Outils utilisés
+
+On utilise GCov afin de réaliser la couverture de code, il est combiné à d'autre outils afin de facilité sa mise en place et d'obtenir des inforamtions de couverture plus lisibles.
+
+Voicie l'ordre dans lequel interviennent les diférents outils :
 * CMake : ajout des options de compilation necessaires à la couverture de code
 * GCC : compilation du programe
 * Execution du programme : génére des fichiers \*.gcno et \*.gcda
 * Gcov : utilise les fichiers \*.gcno et \*.gcda afin de prduire des données de couverture de code.
 * FCov/Gcovr : permet de convertire ces données dans divers formats (HTML, XML, Text).  
 À noter que GCov est appellé automatiquement par FCov ou Gcovr.
+
+## Options de compilation à activées
 
 Pour mettre en place la couverture de code avec GCC il faut ajouter les options
 de compilation suivantes, soit via CMake, soit dans le Makefile :
@@ -23,6 +30,11 @@ de compilation suivantes, soit via CMake, soit dans le Makefile :
 ## CMakeLists
 
 Pour ce projet il y'a trois CMakeLists :
+* Le premier à la racine du projet, noté /CMakeLists
+* Le ssecond dans src, noté src/CMakeLists
+* Le troisème dans tests, noté tests/CMakeLists
+
+Il est préférable de les lire dans cet ordre pour en comprendre le fonctionnement.
 
 #### /CMakeLists
 
