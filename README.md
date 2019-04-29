@@ -146,12 +146,12 @@ Avec Gcovr ( rapport text, HTML et XML/Cobertura )
 pip3 install gcovr
 
 # Générer un rapport HTML
-gcovr -r ../ --html -o chemin/example.html
+gcovr -r ../ --html-details -o chemin/example.html
 
 # Générer un rapport XML ( Cobertura )
-gcovr -r ../ --xml-pretty
+gcovr -r ../ --xml -o chemin/example.xml
 
-# Générer un rapport text
+# Générer un rapport console
 gcovr -r ../
 ```
 
