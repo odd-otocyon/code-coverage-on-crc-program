@@ -6,7 +6,7 @@ pipeline {
                 echo "Lancement du container"
 
                 script {
-                  docker-compose up
+                  sh 'docker-compose up'
                 }
 
                 echo "fin"
