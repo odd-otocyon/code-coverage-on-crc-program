@@ -1,9 +1,9 @@
 pipeline {
-    agent { docker { image 'coverage:1.0' } }
+    agent { label 'crc-coverage' }
     stages {
         stage('build') {
             steps {
-                sh 'gcc --version'
+                sh 'echo "Jenkins fonctionne"'
             }
         }
     }
