@@ -3,7 +3,13 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo "Jenkins fonctionne"
+                echo "Lancement du container"
+
+                script {
+                  docker-compose up
+                }
+
+                echo "fin"
             }
         }
     }
