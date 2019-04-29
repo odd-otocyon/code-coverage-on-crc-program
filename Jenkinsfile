@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo "Jenkins fonctionne"'
+                echo "Jenkins fonctionne"
             }
         }
     }
