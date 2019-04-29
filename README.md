@@ -155,6 +155,23 @@ gcovr -r ../ --xml -o chemin/example.xml
 gcovr -r ../
 ```
 
+## Jenkins
+
+Commande permetant de créer un conteneur Jenkins avec la possibilité de lancer d'autre conteneur à travers celui-ci :
+```batch
+docker run -d -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -p 8080:8080 --name jenkins jenkins/jenkins:lts
+```
+
+Il est necessaire [d'installer docker-ce](https://docs.docker.com/install/linux/docker-ce/debian/) dans ce dernier, et d'ajouter l'utilisateur jenkins au groupe docker :
+```shell
+usermod -a -G docker jenkins
+```
+
+Enfin de changer le propriètaire de /var/run/docker.sock :
+```shell
+chown jenkins /var/run/docker.sock
+```
+
 ## Liens
 [Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)  
 [Doc Lcov](http://ltp.sourceforge.net/coverage/lcov.php)  
