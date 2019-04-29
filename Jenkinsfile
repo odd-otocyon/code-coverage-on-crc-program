@@ -1,9 +1,11 @@
 pipeline {
-    agent any
+    agent {
+      docker { image 'alpine'}
+    }
     stages {
         stage('build') {
             steps {
-                echo "$WORKSPACE"
+                sh "pwd"
             }
         }
     }
