@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'crc-coverage' }
+    agent any
     stages {
         stage('build') {
             steps {
