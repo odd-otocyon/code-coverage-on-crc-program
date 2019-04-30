@@ -7,7 +7,8 @@ then
     rm -rf build
 fi
 
-mkdir -p build/coverage/{html,cobertura}
+mkdir -p build/coverage/cobertura
+mkdir -p build/coverage/html
 cd build
 cmake -D CODE_COVERAGE=ON ../
 make
