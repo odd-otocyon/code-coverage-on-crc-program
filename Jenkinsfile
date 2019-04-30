@@ -2,7 +2,7 @@ pipeline {
     agent {
       docker {
         image 'coverage:1.0'
-        args '-v ./:/code'
+        args '-v $WORKSPACE/:/code'
       }
     }
     stages {
