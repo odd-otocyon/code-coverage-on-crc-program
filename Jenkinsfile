@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh "launchCompil.sh"
+                sh "sh launchCompil.sh"
                 sh "ls -l"
             }
         }
