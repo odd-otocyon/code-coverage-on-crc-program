@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh "launchCompil.sh"
                 sh "ls -l"
-                sh "gcc --version"
             }
         }
     }
