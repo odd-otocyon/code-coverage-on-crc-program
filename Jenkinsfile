@@ -27,7 +27,7 @@ pipeline {
           // onlyStable: false,
           sourceEncoding: 'UTF_8',
           zoomCoverageChart: true,
-          enableNewApi: true
+          enableNewApi: false
         ])
       }
     }
