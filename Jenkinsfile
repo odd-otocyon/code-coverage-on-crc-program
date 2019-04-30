@@ -20,7 +20,7 @@ pipeline {
         step([$class: 'CoberturaPublisher',
           autoUpdateHealth: false,
           autoUpdateStability: false,
-          coberturaReportFile: '$WORKSPACE/build/coverage/cobertura/coverage.xml',
+          coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
           failUnhealthy: false,
           failUnstable: false,
           maxNumberOfBuilds: 0,
