@@ -1,6 +1,9 @@
 pipeline {
     agent {
-      docker { image 'coverage:1.0'}
+      docker {
+        image 'coverage:1.0'
+        args '-v .:/code'
+      }
     }
     stages {
         stage('build') {
