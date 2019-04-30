@@ -26,8 +26,8 @@ pipeline {
           // maxNumberOfBuilds: 0,
           // onlyStable: false,
           sourceEncoding: 'UTF_8',
-          zoomCoverageChart: true,
-          enableNewApi: false
+          zoomCoverageChart: false,
+          enableNewApi: true
         ])
       }
     }

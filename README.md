@@ -155,7 +155,9 @@ gcovr -r ../ --xml -o chemin/example.xml
 gcovr -r ../
 ```
 
-## Jenkins
+## Automatisation avec Jenkins
+
+### Préparation du container
 
 Commande permetant de créer un conteneur Jenkins avec la possibilité de lancer d'autre conteneur à travers celui-ci :
 ```batch
@@ -171,6 +173,12 @@ Enfin de changer le propriètaire de /var/run/docker.sock :
 ```shell
 chown jenkins /var/run/docker.sock
 ```
+
+### Publication du rapport de covarage
+
+#### Avec Cobertura
+
+
 
 ## Liens
 [Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)  
