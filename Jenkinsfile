@@ -1,11 +1,11 @@
 pipeline {
     agent {
-      docker { image 'alpine'}
+      docker { image 'coverage:1.0'}
     }
     stages {
         stage('build') {
             steps {
-                sh "pwd"
+                sh "gcc --version"
             }
         }
     }
