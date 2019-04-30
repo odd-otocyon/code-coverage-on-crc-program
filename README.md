@@ -178,10 +178,32 @@ chown jenkins /var/run/docker.sock
 
 #### Avec Cobertura
 
-
+Voicie comment intégrer la publication de la couverture de code sous Jenkins avec le plugin Cobertura, d'autres options sont disponible dans la [documentation](https://jenkins.io/doc/pipeline/steps/cobertura/#cobertura-publish-cobertura-coverage-report) :
+```groovy
+pipeline {
+    agent {
+      docker {
+        image 'coverage:1.0'
+        args '-v $WORKSPACE/:/code'
+      }
+    }
+    stages {
+        ...
+    }
+    post {
+      always {
+        // Publication de la couverture de code via Cobertura
+        step([$class: 'CoberturaPublisher',
+          coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
+          sourceEncoding: 'UTF_8',
+          enableNewApi: true
+        ])
+      }
+    }
+}
+```
 
 ## Liens
 [Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)  
 [Doc Lcov](http://ltp.sourceforge.net/coverage/lcov.php)  
 [Doc Gcovr](http://www.gcovr.com/en/stable/installation.html)  
-[Publication rapport Cobertura](https://jenkins.io/doc/pipeline/steps/cobertura/#cobertura-publish-cobertura-coverage-report)

@@ -18,15 +18,8 @@ pipeline {
     post {
       always {
         step([$class: 'CoberturaPublisher',
-          // autoUpdateHealth: false,
-          // autoUpdateStability: false,
           coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
-          // failUnhealthy: false,
-          // failUnstable: false,
-          // maxNumberOfBuilds: 0,
-          // onlyStable: false,
           sourceEncoding: 'UTF_8',
-          zoomCoverageChart: false,
           enableNewApi: true
         ])
       }
