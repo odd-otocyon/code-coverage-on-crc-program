@@ -7,11 +7,11 @@ then
     rm -rf build
 fi
 
-mkdir build
+mkdir -p build/coverage/
 cd build
 cmake -D CODE_COVERAGE=ON ../
 make
 # Execution
 ./tests/crc Makefile
 # Génération de rapport avec Gcovr
-gcovr -r ../
+gcovr -r ../ --xml -o build/coverage/coverage.xml
