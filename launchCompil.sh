@@ -14,4 +14,4 @@ make
 # Execution
 ./tests/crc Makefile
 # Génération de rapport avec Gcovr
-gcovr -r ../ --xml -o build/coverage/coverage.xml
+gcovr -r ../ --xml -o coverage/coverage.xml
