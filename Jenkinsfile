@@ -8,9 +8,19 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh "sh launchCompil.sh"
-                sh "ls -l"
+              echo "############################################################"
+              echo "#                        BUILD                             #"
+              echo "############################################################"
+              sh "sh launchCompil.sh"
+
+              publishHTML target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'build/coverage/html/',
+                reportFiles: 'index.html',
+                reportName: 'RCov Report'
+              ]
             }
         }
     }
-}
