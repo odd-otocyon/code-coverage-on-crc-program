@@ -176,3 +176,4 @@ chown jenkins /var/run/docker.sock
 [Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)  
 [Doc Lcov](http://ltp.sourceforge.net/coverage/lcov.php)  
 [Doc Gcovr](http://www.gcovr.com/en/stable/installation.html)  
+[Publication rapport Cobertura](https://jenkins.io/doc/pipeline/steps/cobertura/#cobertura-publish-cobertura-coverage-report)

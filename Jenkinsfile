@@ -25,7 +25,7 @@ pipeline {
           failUnstable: false,
           maxNumberOfBuilds: 0,
           onlyStable: false,
-          sourceEncoding: 'ASCII',
+          sourceEncoding: 'UTF_8',
           zoomCoverageChart: false
         ])
       }
