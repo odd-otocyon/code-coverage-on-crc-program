@@ -12,16 +12,22 @@ pipeline {
               echo "#                        BUILD                             #"
               echo "############################################################"
               sh "sh launchCompil.sh"
-
-              publishHTML target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: false,
-                keepAll: true,
-                reportDir: 'build/coverage/html/',
-                reportFiles: 'index.html',
-                reportName: 'RCov Report'
-              ]
             }
         }
+    }
+    post {
+      always {
+        step([$class: 'CoberturaPublisher',
+          autoUpdateHealth: false,
+          autoUpdateStability: false,
+          coberturaReportFile: '$WORKSPACE/build/coverage/cobertura/coverage.xml',
+          failUnhealthy: false,
+          failUnstable: false,
+          maxNumberOfBuilds: 0,
+          onlyStable: false,
+          sourceEncoding: 'ASCII',
+          zoomCoverageChart: false
+        ])
+      }
     }
 }
