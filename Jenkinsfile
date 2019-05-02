@@ -19,6 +19,7 @@ pipeline {
         always {
             cobertura([autoUpdateHealth: false,
               autoUpdateStability: false,
+              coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
               conditionalCoverageTargets: '70, 0, 0',
               enableNewApi: true,
               failUnhealthy: false,
