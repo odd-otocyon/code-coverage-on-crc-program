@@ -203,6 +203,17 @@ pipeline {
 }
 ```
 
+### Pipeline Snippet Generator
+
+Lors de l'utilisation d'un plugin tel que Cobertura ou Publish-HTML, il est possible de trouver de la documentation et des examples de code en cliquant sur *Pipeline Syntax* en bas de lécran de configuration des pipelines.
+
+![pipeline_syntax](ressources/pipeline_syntax.png)
+
+On y trouve notament un *Snippet Generator*, afin de démarrer avec une configuration de base pour chaque plugin compatible avec les scripts Groovy :
+
+![snippet_generator](ressources/snippet_generator.png)
+*Exemple avec publihHTML plugin*
+
 ## Liens
 [Example CPP11 CMake](https://github.com/codecov/example-cpp11-cmake)  
 [Doc Lcov](http://ltp.sourceforge.net/coverage/lcov.php)  
