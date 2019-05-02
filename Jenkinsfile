@@ -17,7 +17,7 @@ pipeline {
     }
     post {
         always {
-            cobertura([cobertura autoUpdateHealth: false,
+            cobertura([autoUpdateHealth: false,
               autoUpdateStability: false,
               conditionalCoverageTargets: '70, 0, 0',
               enableNewApi: true,
