@@ -17,7 +17,7 @@ pipeline {
     }
     post {
         always {
-            publishHTML([allowMissing: false,
+            step([allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
               reportDir: 'build/coverage/html',
