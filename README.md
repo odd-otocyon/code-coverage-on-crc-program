@@ -36,7 +36,7 @@ Pour ce projet il y'a trois CMakeLists :
 
 Il est préférable de les lire dans cet ordre pour en comprendre le fonctionnement.
 
-#### /CMakeLists
+**/CMakeLists**
 
 On met en place le projet :
 ```CMake
@@ -87,7 +87,7 @@ add_subdirectory(src)
 add_subdirectory(tests)
 ```
 
-### /src/CMakeLists
+**/src/CMakeLists**
 
 On ajoute une cible de type librarie
 ```CMake
@@ -104,7 +104,7 @@ On lie processing est coverage_config, ainsi processing hérite des tags de comp
 target_link_libraries(processing PUBLIC coverage_config)
 ```
 
-### /test/CMakeLists
+**/test/CMakeLists**
 
 On ajoute une cible de type executable, on la lie à *processing*. Comme *processing* est lié à *coverage_config*, les tags de compile de cette dernière sont aussi passés à *crc*
 ```CMake
@@ -191,17 +191,95 @@ pipeline {
         ...
     }
     post {
-      always {
-        // Publication de la couverture de code via Cobertura
-        step([$class: 'CoberturaPublisher',
-          coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
-          sourceEncoding: 'UTF_8',
-          enableNewApi: true
-        ])
-      }
+        always {
+          // Publication de la couverture de code via Cobertura
+          step([$class: 'CoberturaPublisher',
+            coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
+            sourceEncoding: 'UTF_8',
+            enableNewApi: true
+          ])
+        }
     }
 }
 ```
+
+#### Avec PublishHTML
+Voicie comment intégrer la publication de la couverture de code sous Jenkins avec le plugin PublishHTML :
+```groovy
+pipeline {
+    agent {
+      docker {
+        image 'coverage:1.0'
+        args '-v $WORKSPACE/:/code'
+      }
+    }
+    stages {
+        ...
+    }
+    post {
+        always {
+            publishHTML([allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: 'build/coverage/html',
+              reportFiles: 'index.html',
+              reportName: 'HTML Report',
+              reportTitles: ''
+            ])
+        }
+    }
+}
+
+```
+
+##### Configuration du plugin
+
+La *Content Security Policy* de Jenkins ne permet pas un affichage optimal du HTML, car elle bloque l'execution du CSS et JavaScript.
+Les options de *Content Security Policy* suivantes permettent d'y remédier :  
+* sandbox allow-scripts : permet de limiter un certain nombre d'actions que la page peut effectuer.
+* default-src 'self' : autorise le chargement de JavaScript, Images, CSS, Fonts, AJAX requests, Frames et HTML5 Media, stockés à l'interieur des répertoires de Jenkins.
+* style-src 'self' 'unsafe-inline' : autorise le chargement de balise de style inline sur les fichiers stockés à l'interieur de Jenkins.
+
+Quelques explications :
+* self : relatif aux fichiers servis par Jenkins.
+* unsafe : étant données que le répertoire de build peut-être modifié par des plugins, tout fichiers stockés à l'intérieur est considéré comme non non sûr.
+* inline : relatif éléments inline de ces fichiers tels que attribut de style, onclick, ou script tag.
+
+**Configuration temporaire :**
+
+Allez dans :  
+\> Manage Jenkins
+\> Manage Nodes  
+\> Cliquer sur l'engrenage    
+\> Script Console (colonne de gauche)
+
+Dans la zone de texte collez cette commande :
+```shell
+System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "sandbox allow-scripts; default-src 'self'; style-src 'self' 'unsafe-inline';")
+```
+
+**Configuration permanente :**
+
+Stopez Jenkins, puis rendez vous dans le dossier où se trouve jenkins.war, tapez la commande suivante :
+
+```shell
+# Pour Linux
+java -Dhudson.model.DirectoryBrowserSupport.CSP="sandbox allow-scripts; default-src 'self'; style-src 'self' 'unsafe-inline';" -jar jenkins.war
+
+# Pour Windows
+java.exe -Dhudson.model.DirectoryBrowserSupport.CSP="sandbox allow-scripts; default-src 'self'; style-src 'self' 'unsafe-inline';" -jar jenkins.war
+```
+
+Si Jenkins est lancé en tant que service Windows, modfiez le fichier jenkins.xml se trouvant dans le répertoire d'installation de Jenkins, en ajoutant :
+```xml
+-Dhudson.model.DirectoryBrowserSupport.CSP="sandbox allow-scripts; default-src 'self'; style-src 'self' 'unsafe-inline';"
+```
+Dans l'élément *<arguments\>*
+
+**Articles de références :**
+* [Configuring Content Security Policy](https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy)
+* [Content Security Policy Reference](https://content-security-policy.com/)
+* [Adjusting the Jenkins Content Security Policy](https://www.cyotek.com/blog/adjusting-the-jenkins-content-security-policy)
 
 ### Pipeline Snippet Generator
 

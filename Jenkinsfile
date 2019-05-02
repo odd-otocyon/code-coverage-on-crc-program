@@ -17,7 +17,7 @@ pipeline {
     }
     post {
       always {
-        step([$class: 'CoberturaPublisher',
+        cobertura([$class: 'CoberturaPublisher',
           coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
           sourceEncoding: 'UTF_8',
           enableNewApi: true
