@@ -10,9 +10,9 @@ On utilise GCov afin de réaliser la couverture de code, il est combiné à d'au
 
 Voicie l'ordre dans lequel interviennent les diférents outils :
 * CMake : ajout des options de compilation necessaires à la couverture de code
-* GCC : compilation du programe
-* Execution du programme : génére des fichiers \*.gcno et \*.gcda
-* Gcov : utilise les fichiers \*.gcno et \*.gcda afin de prduire des données de couverture de code.
+* GCC : compilation du programe, et génération des \*gcno, ces fichiers contiennent des informations pour reconstruire les basic block graphs et assigner les numéros de ligne du fichier source au block.
+* Execution du programme : génére des fichiers \*.gcda, ces fichiers contiennent les arc transition counts et des sommaires d'informations.
+* Gcov : utilise les fichiers \*.gcno et \*.gcda afin de produire des données de couverture de code.
 * FCov/Gcovr : permet de convertire ces données dans divers formats (HTML, XML, Text).  
 À noter que GCov est appellé automatiquement par FCov ou Gcovr.
 
@@ -23,8 +23,8 @@ de compilation suivantes, soit via CMake, soit dans le Makefile :
 * -O0 : compilation sans optimisation
 * -g : compilation en mode debug
 * --coverage : active la couverture de code, cette option regroupe les trois suivantes :
-    * -fprofile-arcs : compile en permettant la génération de données lors de l'execution du programme, celles-ci sont utilisées lors de la couverture de code.
-    * -ftest-coverage : produit des fichiers utilisés par Gcov
+    * -fprofile-arcs : chaque fichier compilé avec cette option générera un fichier de données \*.gcda à l'execution du programme.
+    * -ftest-coverage : génère des \*.gcno (notes Gcvov) à partir des \*.gcda.
     * -lgcov : lie les fichiers générés à la librairie Gcov
 
 ## CMakeLists
