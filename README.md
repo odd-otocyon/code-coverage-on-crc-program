@@ -16,7 +16,7 @@ Voicie l'ordre dans lequel interviennent les diférents outils :
 * FCov/Gcovr : permet de convertire ces données dans divers formats (HTML, XML, Text).  
 À noter que GCov est appellé automatiquement par FCov ou Gcovr.
 
-## Options de compilation à activées
+## Options de compilation à activer
 
 Pour mettre en place la couverture de code avec GCC il faut ajouter les options
 de compilation suivantes, soit via CMake, soit dans le Makefile :
