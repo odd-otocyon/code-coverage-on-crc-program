@@ -11,9 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(coverage_config INTERFACE)
 
 # création d'une option pour activer ou non la couverture de code
-option(CODE_COVERAGE "Enable coverage reporting" OFF)
-if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    message("Converture de code activée")
+option(COVERAGE "Enable coverage reporting" ON)
+if(COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    message("##### Converture de code activée #####")
     target_compile_options(coverage_config INTERFACE
         -O0
         -g
