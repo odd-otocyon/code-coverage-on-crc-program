@@ -1,0 +1,5 @@
+# Conteneur servant à tester quels fichiers sont utiles au coverage
+# et où les placer
+FROM coverage:1.0
+
+CMD ["sh", "/code/docker-coverage/init.sh"]
