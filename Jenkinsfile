@@ -21,7 +21,8 @@ pipeline {
     post {
         success {
             script {
-                if (params.COVERAGE == true) {
+                // Si le COVERAGE est true, on publie le rapport de code coverage
+                if (params.COVERAGE) {
                     cobertura([autoUpdateHealth: false,
                       autoUpdateStability: false,
                       coberturaReportFile: 'build/coverage/cobertura/coverage.xml',
