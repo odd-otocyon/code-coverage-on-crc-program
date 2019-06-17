@@ -22,7 +22,7 @@ pipeline {
               sh "sh init_test.sh"
             }
         }
-        stage('test') {
+        stage('coverage') {
             steps {
               echo "############################################################"
               echo "#                      COVERA                              #"
