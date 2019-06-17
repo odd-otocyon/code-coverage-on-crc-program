@@ -25,7 +25,7 @@ pipeline {
         stage('coverage') {
             steps {
               echo "############################################################"
-              echo "#                      COVERA                              #"
+              echo "#                      COVERAG                             #"
               echo "############################################################"
               sh "sh init_coverage.sh"
             }
@@ -36,7 +36,7 @@ pipeline {
             publishHTML([allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
-              reportDir: 'build/coverage/html',
+              reportDir: 'build/coverage/',
               reportFiles: 'index.html',
               reportName: 'HTML Report',
               reportTitles: ''
