@@ -14,8 +14,6 @@ pipeline {
               sh "sh init_build.sh"
             }
         }
-    }
-    stages {
         stage('test') {
             steps {
               echo "############################################################"
@@ -24,8 +22,6 @@ pipeline {
               sh "sh init_test.sh"
             }
         }
-    }
-    stages {
         stage('test') {
             steps {
               echo "############################################################"
