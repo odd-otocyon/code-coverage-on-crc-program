@@ -11,4 +11,4 @@ RUN apk update && \
     pip3 install gcovr
     # chmod +x launchCompil.sh
 
-CMD ["sh", "launchCompil.sh"]
+CMD ["sh", "init_all.sh"]

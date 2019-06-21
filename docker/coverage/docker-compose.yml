@@ -7,7 +7,7 @@ services:
         image: coverage:1.0
         volumes:
             - type: bind
-              source: ./
+              source: ../../
               target: /code
               volume:
                   nocopy: true
