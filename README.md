@@ -1,4 +1,4 @@
-# Couverture de code C++.
+# Couverture de code C++ (GCC, CMake, Jenkins, Docker)
 
 Ce projet à pour but de compiler un programme C++ avec mise en place d'un système de couverture de code.
 Puis d'automatiser le processus via Docker et Jenkins.
